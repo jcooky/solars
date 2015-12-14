@@ -24,11 +24,10 @@
 #include "util.h"
 #include "selector.h"
 
-#ifndef NDEBUG
-#define MODEL "model.osgt"
-#else
-#define MODEL "model.osgt"
-#endif
+#define SOURCE "C:\\Users\\user1\\Github\\solars"
+
+#define MODEL SOURCE"\\model.osgt"
+
 #include "skybox.h"
 
 using namespace osg;
@@ -86,12 +85,12 @@ public:
 		
 
         osg::Node *models = osgDB::readNodeFile(MODEL);
-		osg::Image *posX = osgDB::readImageFile("galaxy/galaxy+X.tga");
-		osg::Image *negX = osgDB::readImageFile("galaxy/galaxy-X.tga");
-		osg::Image *posY = osgDB::readImageFile("galaxy/galaxy+Y.tga");
-		osg::Image *negY = osgDB::readImageFile("galaxy/galaxy-Y.tga");
-		osg::Image *posZ = osgDB::readImageFile("galaxy/galaxy+Z.tga");
-		osg::Image *negZ = osgDB::readImageFile("galaxy/galaxy-Z.tga");
+		osg::Image *posX = osgDB::readImageFile(SOURCE"\\galaxy/galaxy+X.tga");
+		osg::Image *negX = osgDB::readImageFile(SOURCE"\\galaxy/galaxy-X.tga");
+		osg::Image *posY = osgDB::readImageFile(SOURCE"\\galaxy/galaxy+Y.tga");
+		osg::Image *negY = osgDB::readImageFile(SOURCE"\\galaxy/galaxy-Y.tga");
+		osg::Image *posZ = osgDB::readImageFile(SOURCE"\\galaxy/galaxy+Z.tga");
+		osg::Image *negZ = osgDB::readImageFile(SOURCE"\\galaxy/galaxy-Z.tga");
 
 		skybox->setEnvironmentMap(0, posX, negX, posY, negY, posZ, negZ);
 
@@ -141,35 +140,35 @@ public:
                     osg::Matrix orbit, rot, T, T_i;
 
                     orbit = osg::Matrix::rotate(47.36 * DT * ORBIT_SCALE, 0, 0, 1);
-                    rot = osg::Matrix::rotate(10.892 * DT * ROT_SCALE, 0, 1, 0); //	~0.01°, 10.892 km/h (적도기준)
+                    rot = osg::Matrix::rotate(10.892 * DT * ROT_SCALE, 0, 0, 1); //	~0.01°, 10.892 km/h (적도기준)
 					T = Matrix::translate(saturn->getMatrix().getTrans());
 					T_i = Matrix::inverse(T);
 
                     mercury->setMatrix(mercury->getMatrix() * T_i * rot * T * orbit);
 
                     orbit = osg::Matrix::rotate(35.02 * DT * ORBIT_SCALE, 0, 0, 1);
-                    rot = osg::Matrix::rotate(6.52 * DT * ROT_SCALE, 0, 1, 0); //2.64°, 6.52 km/h (적도기준)
+                    rot = osg::Matrix::rotate(6.52 * DT * ROT_SCALE, 0, 0, 1); //2.64°, 6.52 km/h (적도기준)
 					T = Matrix::translate(saturn->getMatrix().getTrans());
 					T_i = Matrix::inverse(T);
 
                     venus->setMatrix(venus->getMatrix() * T_i * rot * T * orbit);
 
                     orbit = osg::Matrix::rotate(29.783 * DT * ORBIT_SCALE, 0, 0, 1);
-                    rot = osg::Matrix::rotate(1674.4 * DT * ROT_SCALE, 0, 1, 0); //23.439 281°, 465.11 m/sec = 1674.4 km/h (적도)
+                    rot = osg::Matrix::rotate(1674.4 * DT * ROT_SCALE, 0, 0, 1); //23.439 281°, 465.11 m/sec = 1674.4 km/h (적도)
 					T = Matrix::translate(saturn->getMatrix().getTrans());
 					T_i = Matrix::inverse(T);
 
                     earth->setMatrix(earth->getMatrix() * T_i * rot * T * orbit);
 
                     orbit = osg::Matrix::rotate(24.077 * DT * ORBIT_SCALE, 0, 0, 1);
-                    rot = osg::Matrix::rotate(868.22 * DT * ROT_SCALE, 0, 1, 0); //25.19°, 868.22 km/h (적도)
+                    rot = osg::Matrix::rotate(868.22 * DT * ROT_SCALE, 0, 0, 1); //25.19°, 868.22 km/h (적도)
 					T = Matrix::translate(saturn->getMatrix().getTrans());
 					T_i = Matrix::inverse(T);
 
                     mars->setMatrix(mars->getMatrix() * T_i * rot * T * orbit);
 
                     orbit = osg::Matrix::rotate(13.05624 * DT * ORBIT_SCALE, 0, 0, 1);
-                    rot = osg::Matrix::rotate(45360 * DT * ROT_SCALE, 0, 1, 0); //궤도면 기준 3.13°, 	12.6 km/s = 45360 km/h
+                    rot = osg::Matrix::rotate(45360 * DT * ROT_SCALE, 0, 0, 1); //궤도면 기준 3.13°, 	12.6 km/s = 45360 km/h
 					T = Matrix::translate(saturn->getMatrix().getTrans());
 					T_i = Matrix::inverse(T);
 
