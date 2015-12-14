@@ -26,8 +26,6 @@
 
 #define SOURCE "C:\\Users\\user1\\Github\\solars"
 
-#define MODEL SOURCE"\\model.osgt"
-
 #include "skybox.h"
 
 using namespace osg;
@@ -84,7 +82,7 @@ public:
 
 		
 
-        osg::Node *models = osgDB::readNodeFile(MODEL);
+        osg::Node *models = osgDB::readNodeFile(SOURCE"\\model.osgt");
 		osg::Image *posX = osgDB::readImageFile(SOURCE"\\galaxy/galaxy+X.tga");
 		osg::Image *negX = osgDB::readImageFile(SOURCE"\\galaxy/galaxy-X.tga");
 		osg::Image *posY = osgDB::readImageFile(SOURCE"\\galaxy/galaxy+Y.tga");
