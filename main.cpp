@@ -20,6 +20,7 @@
 #include <osgDB/readFile>
 #include <osg/Camera>
 #include <osg/Texture2D>
+#include <osg/io_utils>
 #include <osg/StateSet>
 #include <osgViewer/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
@@ -33,7 +34,7 @@
 #include "selector.h"
 #include "label.h"
 
-#define SOURCE "/Users/JCooky/Github/solars"
+#define SOURCE "c:/users/user1/Github/solars"
 
 #include "skybox.h"
 
@@ -169,10 +170,13 @@ public:
                     if (context.getViewNode() != "") {
                         osg::MatrixTransform *cameraTransform = findNamedNode<osg::MatrixTransform>(
                                 context.getViewNode(), root);
-//						Matrix matrix;
-//						cameraTransform->computeLocalToWorldMatrix(matrix, NULL);
+						Matrix matrix = cameraTransform->getWorldMatrices()[0];
+						Vec3d eye, center, up;
+						matrix.getLookAt(eye, center, up, 10.0);
 
-                        viewer.getCameraManipulator()->setByMatrix(cameraTransform->getWorldMatrices()[0]);
+						std::cout << eye << std::endl << center << std::endl << up << std::endl << std::endl;
+
+                        viewer.getCameraManipulator()->setByMatrix(matrix);
                     }
                 }
 
@@ -196,8 +200,8 @@ public:
         targetNames.insert("Venus");
         targetNames.insert("Saturn");
         targetNames.insert("Mercury");
-        targetNames.insert("Uranus");
-        targetNames.insert("Naptune");
+//        targetNames.insert("Uranus");
+//        targetNames.insert("Naptune");
 
         osg::Group *root = startUpScene();
         root->setNodeMask(MASK_3D);
@@ -227,16 +231,15 @@ public:
                 800,
                 600,
                 MASK_2D,
-                osgWidget::WindowManager::WM_PICK_DEBUG
+                0
         );
         osg::ref_ptr<osg::Camera> camera = wm->createParentOrthoCamera();
 
         osgWidget::Window *menu = new osgWidget::Box("menu", osgWidget::Box::HORIZONTAL);
 
-        menu->addWidget(new ColorLabelMenu("Pick me!"));
-        menu->addWidget(new ColorLabelMenu("No, wait, pick me!"));
-        menu->addWidget(new ColorLabelMenu("Dont pick them.."));
-        menu->addWidget(new ColorLabelMenu("Grararar!?!"));
+        menu->addWidget(new SelectLabelMenu("Select", &context, targetNames));
+		menu->addWidget(new OverviewMenu("OverView", &context, &viewer));
+        menu->addWidget(new ExitLabelMenu("Exit", &context));
 
         wm->addChild(menu);
 
