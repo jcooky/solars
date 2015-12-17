@@ -29,12 +29,13 @@
 #include <osgWidget/Label>
 #include <osgWidget/ViewerEventHandlers>
 
+#include "config.h"
 #include "context.h"
 #include "util.h"
 #include "selector.h"
 #include "label.h"
 
-#define SOURCE "c:/users/user1/Github/solars"
+#define SOURCE PROJECT_SOURCE_DIR
 
 #include "skybox.h"
 
